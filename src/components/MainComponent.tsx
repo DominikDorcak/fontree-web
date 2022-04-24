@@ -1,6 +1,7 @@
 import React from "react";
 import API from "../services/API";
 import {StatusResponse} from "../services/ResponseInterfaces";
+import FontComponent from "./FontComponent";
 
 interface MainComponentProps{
 
@@ -17,6 +18,7 @@ const initialState = {
             version:""
         }
     }
+
 }
 
 export default class MainComponent extends React.Component<MainComponentProps, MainComponentState>{
@@ -27,10 +29,12 @@ export default class MainComponent extends React.Component<MainComponentProps, M
 
     componentDidMount() {
         API.getStatus().then(r => {
-            console.log(r)
             this.setState({apiStatus:r})
         })
+
     }
+
+
 
     render() {
         return <div>
@@ -39,6 +43,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
                 <div>{this.state.apiStatus.db.online ? "online" : "offline"}</div><br/>
                 <div>version: {this.state.apiStatus.db.version}</div><br/>
                 <div>ping: {this.state.apiStatus.db.ping}</div>
+                <FontComponent></FontComponent>
             </p>
         </div>
     }

@@ -5,7 +5,6 @@ class API{
 
     async createResponse(path:string,params:any[]) : Promise<any>{
         let url = process.env.REACT_APP_API_URL + path
-        console.log(url)
         return fetch(url).then(res => res.json()).then(res => res)
     }
 
@@ -29,6 +28,10 @@ class API{
 
     async getStatus() : Promise<StatusResponse>{
         return await this.createResponse("",[])
+    }
+
+    async getRandomFont() : Promise<{font_id:number}> {
+        return await this.createResponse('font/random',[])
     }
 }
 
