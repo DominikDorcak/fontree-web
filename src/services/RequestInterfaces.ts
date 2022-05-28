@@ -1,7 +1,7 @@
 export interface ExperimentEntry{
     id?:number,
     entry_time?:Date,
-    age:number,
+    age:number|undefined,
     sex:string,
     highest_education:number,
     assigned_font:number,

@@ -54,7 +54,7 @@ class API {
         }>
     {
         const path = "experiment/entry"
-        const response: InsertResponse = await this.sendData(path,entry)
+        const response: InsertResponse = await this.sendData(path,{'entry':entry})
         return response.inserted
     }
 

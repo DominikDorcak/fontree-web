@@ -1,22 +1,21 @@
 import React from "react";
-import {Question} from "../services/ResponseInterfaces";
+import {Answer, Question} from "../services/ResponseInterfaces";
 import API from "../services/API";
+import {Col, Row} from "react-bootstrap";
+import AnswerComponent from "./AnswerComponent";
 
 interface QuestionComponentProps {
     question_id: number
+    onSelectAnswer: (a: Answer) => void
+    question: Question
 }
 
 interface QuestionComponentState {
-    question: Question
 
 }
 
 const initialState: QuestionComponentState = {
-    question: {
-        question_id: NaN,
-        text: "",
-        answers: []
-    }
+
 }
 
 export default class QuestionComponent extends React.Component<QuestionComponentProps, QuestionComponentState> {
@@ -26,17 +25,21 @@ export default class QuestionComponent extends React.Component<QuestionComponent
     }
 
 
-    fetchQuestionData(): void {
-        API.getQuestion(this.props.question_id).then(q => this.setState({question:q}))
-    }
 
-    componentDidMount() {
-        this.fetchQuestionData()
-    }
+
 
     render() {
-        return <div>
-            {this.state.question.text}
-        </div>;
+        return <>
+            <Row>
+                <div>{this.props.question.text}</div>
+            </Row>
+            <Row>
+                {this.props.question.answers.map((answer) => {
+                    return <Col key={answer.answer_id}>
+                        <AnswerComponent answer={answer} onSelectAnswer={this.props.onSelectAnswer}/>
+                    </Col>
+                })}
+            </Row>
+        </>;
     }
 }

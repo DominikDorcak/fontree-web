@@ -1,6 +1,5 @@
 import React from "react";
 import {Font} from "../services/ResponseInterfaces";
-import API from "../services/API";
 
 interface FontComponentProps{
     font:Font
@@ -23,10 +22,6 @@ export default class FontComponent extends React.Component<FontComponentProps, F
 
 
 
-
-    componentDidMount() {
-
-    }
 
     render() {
         return <>
