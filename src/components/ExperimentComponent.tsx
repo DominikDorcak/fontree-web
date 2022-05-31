@@ -11,11 +11,12 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import ThemeProvider from 'react-bootstrap/ThemeProvider'
 
 
-interface MainComponentProps {
+
+interface ExperimentComponentProps {
 
 }
 
-interface MainComponentState {
+interface ExperimentComponentState {
     apiStatus: StatusResponse
     entry: ExperimentEntry
     font: Font
@@ -27,7 +28,7 @@ interface MainComponentState {
     hasNextQuestion: boolean
 }
 
-const initialState: MainComponentState = {
+const initialState: ExperimentComponentState = {
     apiStatus: {
         db: {
             online: false,
@@ -85,8 +86,8 @@ const educationOptions = [
     {value: 5, label: "Vysoká škola - vyššie"},
 ]
 
-export default class MainComponent extends React.Component<MainComponentProps, MainComponentState> {
-    constructor(props: MainComponentProps) {
+export default class ExperimentComponent extends React.Component<ExperimentComponentProps, ExperimentComponentState> {
+    constructor(props: ExperimentComponentProps) {
         super(props);
         this.state = initialState
     }
@@ -121,7 +122,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
     moveInTree = () => {
         const next_node_id = (this.state.lastAnswer && this.state.lastAnswer.numeric_value > 0.5) ? this.state.node.right_child : this.state.node.left_child
         this.fetchNodeData(next_node_id)
-        this.setState((oldstate: MainComponentState) => {
+        this.setState((oldstate: ExperimentComponentState) => {
             const new_question_count = oldstate.entry.question_count + 1
             return {
                 entry: {
@@ -140,7 +141,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
 
     evaluateNode = () => {
         if (this.state.node.is_leaf) {
-            this.setState((oldstate: MainComponentState) => {
+            this.setState((oldstate: ExperimentComponentState) => {
                 const time = oldstate.startTime ? Date.now() - oldstate.startTime : -1
                 return {
                     entry: {
@@ -160,7 +161,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
 
     handleSexChange = (e: React.ChangeEvent<any>) => {
         const newvalue = e.currentTarget
-        this.setState((oldstate: MainComponentState) => {
+        this.setState((oldstate: ExperimentComponentState) => {
             return {
                 node: oldstate.node,
                 font: oldstate.font,
@@ -179,7 +180,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
 
     handleEducationChange = (e: React.ChangeEvent<any>) => {
         const newvalue = e.currentTarget
-        this.setState((oldstate: MainComponentState) => {
+        this.setState((oldstate: ExperimentComponentState) => {
             return {
                 entry: {
                     age: oldstate.entry.age,
@@ -196,7 +197,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
 
     handleAgeChange = (e: React.FormEvent<HTMLInputElement>) => {
         const val: number = parseInt(e.currentTarget.value)
-        this.setState((oldstate: MainComponentState) => {
+        this.setState((oldstate: ExperimentComponentState) => {
             return {
                 entry: {
                     age: val,
@@ -247,20 +248,20 @@ export default class MainComponent extends React.Component<MainComponentProps, M
 
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return <ThemeProvider>
-            {/*<p>Status</p>*/}
-            {/*<div>db:<br/>*/}
-            {/*    /!*<div>{this.state.apiStatus.db.online ? "online" : "offline"}</div>*!/*/}
-            {/*    <br/>*/}
-            {/*    <div>version: {this.state.apiStatus.db.version}</div>*/}
-            {/*    <br/>*/}
-            {/*    <div>ping: {this.state.apiStatus.db.ping}</div>*/}
-            {/*</div>*/}
             <Container>
+                <br/>
+                <Row>
+                    <Col>
+                        <Button variant="secondary" onClick={() => this.toggleModal()}>O Vás</Button>
+                    </Col>
+                </Row>
+                <br/>
                 <Row>
                     <Col>
                         <FontComponent font={this.state.font}></FontComponent>
+                        <br/> <br/>
                         <QuestionComponent
                             question_id={this.state.node.question_id}
                             onSelectAnswer={this.onSelectAnswer}
@@ -274,11 +275,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
 
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <Button onClick={() => this.toggleModal()}>Skontrolovať dáta</Button>
-                    </Col>
-                </Row>
+
             </Container>
 
 
@@ -307,7 +304,7 @@ export default class MainComponent extends React.Component<MainComponentProps, M
                         <input type={"number"} value={this.state.entry.age}
                                onChange={this.handleAgeChange}/>
                     </InputGroup>
-                    <Button onClick={() => this.toggleModal()}>{this.state.startTime ? "Pokračovať" : "Začať"}</Button>
+                    <Button variant="secondary" onClick={() => this.toggleModal()}>{this.state.startTime ? "Pokračovať" : "Začať"}</Button>
                 </Modal.Body>
             </Modal>
         </ThemeProvider>

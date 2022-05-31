@@ -1,6 +1,7 @@
 import React from "react";
 import {Answer} from "../services/ResponseInterfaces";
 import {Button} from "react-bootstrap";
+import ImageLoader from "./ImageLoader";
 
 interface AnswerComponentProps {
     answer: Answer
@@ -11,9 +12,7 @@ interface AnswerComponentState {
 
 }
 
-const initialState: AnswerComponentState = {
 
-}
 
 export default class AnswerComponent extends React.Component<AnswerComponentProps, AnswerComponentState> {
     constructor(props: AnswerComponentProps) {
@@ -24,6 +23,10 @@ export default class AnswerComponent extends React.Component<AnswerComponentProp
 
 
     render() {
-        return <Button onClick={()=>this.props.onSelectAnswer(this.props.answer)}>{this.props.answer.show_value}</Button>
+        return (<div>
+            <ImageLoader path={"answer/" + this.props.answer.answer_id + "png"} alt={"answer"}/>
+            <br/><br/>
+            <Button variant="secondary" onClick={()=>this.props.onSelectAnswer(this.props.answer)}>{this.props.answer.show_value}</Button>
+        </div>)
     }
 }
