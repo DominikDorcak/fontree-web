@@ -43,4 +43,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: build/
           server-dir: www/
+          state-name: ../.state.json
           
