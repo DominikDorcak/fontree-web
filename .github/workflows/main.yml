@@ -44,4 +44,7 @@ jobs:
           local-dir: build/
           server-dir: www/
           state-name: ../state.json
+          exclude: |
+            **/img/*
+            .htaccess
 
