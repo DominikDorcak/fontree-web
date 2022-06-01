@@ -22,7 +22,7 @@ export default class AnswerComponent extends React.Component<AnswerComponentProp
 
     render() {
         return (<div>
-            <ImageLoader path={"answer/" + this.props.answer.answer_id + "png"} alt={"answer"}/>
+            <ImageLoader path={"answer/" + this.props.answer.answer_id + ".png"} alt={"answer"}/>
             <br/><br/>
             <Button variant="secondary" onClick={()=>this.props.onSelectAnswer(this.props.answer)}>{this.props.answer.show_value}</Button>
         </div>)
