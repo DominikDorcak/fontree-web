@@ -36,12 +36,13 @@ jobs:
           cmd: build # will run `yarn build` command
     
       - name: Deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        uses: sebastianpopp/ftp-action@releases/v2
         with:
-          server: ftpx.forpsi.com
+          host: ftpx.forpsi.com
           username: fontreeeu
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: build/
-          server-dir: www/
-          state-name: ../.state.json
+          localDir: "build"
+          remoteDir: "www"
+          options: "--delete"
           
+
