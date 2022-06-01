@@ -39,7 +39,7 @@ jobs:
         uses: sebastianpopp/ftp-action@releases/v2
         with:
           host: ftpx.forpsi.com
-          username: fontreeeu
+          user: fontreeeu
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: "build"
           remoteDir: "www"
