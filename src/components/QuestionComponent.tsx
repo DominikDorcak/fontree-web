@@ -1,6 +1,5 @@
 import React from "react";
 import {Answer, Question} from "../services/ResponseInterfaces";
-import API from "../services/API";
 import {Col, Row} from "react-bootstrap";
 import AnswerComponent from "./AnswerComponent";
 

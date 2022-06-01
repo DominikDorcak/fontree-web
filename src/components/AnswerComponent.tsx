@@ -15,9 +15,7 @@ interface AnswerComponentState {
 
 
 export default class AnswerComponent extends React.Component<AnswerComponentProps, AnswerComponentState> {
-    constructor(props: AnswerComponentProps) {
-        super(props);
-    }
+
 
 
 
