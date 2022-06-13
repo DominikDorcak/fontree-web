@@ -20,7 +20,7 @@ export default class AboutComponent extends Component<any, any> {
                         odpovedí užívateľa.
                         Autorom práce je Dominik Dorčák. <br/>
                         Systém využíva klasifikátor na základe rozhodovacích stromov. Ako údaje na ténovanie
-                        klasifikátora boli použité dáta ručne zobierané z typografických systémov a ručne zodpovedané
+                        klasifikátora boli použité fonty ručne zozbierané z typografických systémov a ručne zodpovedané
                         otázky k týmto fontom.
                         Pre viac informácii navštívte <a href={"https://s.ics.upjs.sk/~ddorcak/"}>web práce</a>
                     </Col>
