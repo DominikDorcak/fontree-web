@@ -4,7 +4,6 @@ import ImageLoader from "./ImageLoader";
 
 export default class AboutComponent extends Component<any, any> {
     render() {
-        //TODO: spisat info o projekte + linky na stranku prace a git repozitare + kontakt
         return <ThemeProvider>
             <Container>
                 <br/>

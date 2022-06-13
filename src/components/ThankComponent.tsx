@@ -41,7 +41,6 @@ class ThankComponent extends Component<any, ThankComponentState> {
     }
 
     render() {
-        //TODO: dorobit nacitanie experiment entry + podakovanie
         return <ThemeProvider>
             <Container>
                 <br/>
