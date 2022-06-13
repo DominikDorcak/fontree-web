@@ -9,7 +9,7 @@ import API from "../services/API";
 import {useParams} from "react-router-dom";
 
 interface FontQuestionsProps{
-    match:{params:{id:number}}
+    params:{id:number}
 }
 interface FontQuestionsState{
     questions:Question[] | undefined,
@@ -103,7 +103,6 @@ class FontQuestions extends React.Component<FontQuestionsProps, FontQuestionsSta
             </Container>
 
         </ThemeProvider>
-            ;
     }
 }
 
