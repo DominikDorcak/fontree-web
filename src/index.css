@@ -87,11 +87,12 @@ code {
   background: #212529;
   color: white;
   min-width: 100vw;
-  padding: 0.7em;
+  padding: 0.5em;
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 200;
+  font-size: 0.75em;
 }
 
 .footer-padder{
