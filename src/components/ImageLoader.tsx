@@ -3,6 +3,7 @@ import React from "react";
 interface ImgProps {
     path:string
     alt:string
+    class?: string
 }
 
 interface ImgState {
@@ -14,7 +15,7 @@ export default class ImageLoader extends React.Component<ImgProps, ImgState>{
 
     render() {
         return (
-            <img src={this.imghome + this.props.path} alt={this.props.alt}></img>
+            <img src={this.imghome + this.props.path} alt={this.props.alt} className={this.props.class!}></img>
         );
     }
 }

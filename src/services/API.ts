@@ -1,5 +1,5 @@
 import {
-    Font,
+    Font, FontAnswer, FontAnswerResponse,
     FontResponse,
     InsertResponse,
     Node,
@@ -58,12 +58,23 @@ class API {
         return response.inserted
     }
 
+    async sendFontAnswer(answer: FontAnswer): Promise<FontAnswer>
+    {
+        const path = "font/answer"
+        const response: FontAnswerResponse = await this.sendData(path,{'font_answer':answer})
+        return response.font_answer
+    }
+
     async getStatus(): Promise<StatusResponse> {
         return await this.createResponse("", [])
     }
 
     async getRandomFont(): Promise<{ font_id: number }> {
         return await this.createResponse('font/random', [])
+    }
+
+    async getAllQuestions(): Promise<{ questions: Question[] }> {
+        return await this.createResponse('question/all', [])
     }
 }
 

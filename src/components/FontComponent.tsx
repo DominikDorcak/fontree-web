@@ -4,6 +4,7 @@ import ImageLoader from "./ImageLoader";
 
 interface FontComponentProps{
     font:Font
+    title_text?:string
 }
 
 interface  FontComponentState{
@@ -27,7 +28,7 @@ export default class FontComponent extends React.Component<FontComponentProps, F
     render() {
         return <>
             <div>
-                <h4>Priradený font:</h4>
+                {this.props.title_text && <h4>{this.props.title_text}</h4>}
                 <p><strong>{this.props.font.name}</strong></p>
                 <ImageLoader path={"fonts/" + this.props.font.font_id  + ".png"} alt={"font"}/>
             </div>

@@ -9,7 +9,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import Modal from 'react-bootstrap/Modal'
 import {Button, Col, Container, Row} from "react-bootstrap";
 import ThemeProvider from 'react-bootstrap/ThemeProvider'
-
+import {Navigate} from "react-router-dom";
 
 
 interface ExperimentComponentProps {
@@ -26,6 +26,7 @@ interface ExperimentComponentState {
     lastAnswer: Answer | undefined
     question: Question
     hasNextQuestion: boolean
+    entrySent: boolean
 }
 
 const initialState: ExperimentComponentState = {
@@ -61,6 +62,7 @@ const initialState: ExperimentComponentState = {
     startTime: undefined,
     lastAnswer: undefined,
     hasNextQuestion: true,
+    entrySent: false,
     question: {
         question_id: NaN,
         text: "",
@@ -101,15 +103,20 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
     fetchNodeData(node_id: number): void {
         if (this.state.hasNextQuestion) {
             API.getNode(node_id).then(node => {
-                this.setState({node: node, hasNextQuestion: !node.is_leaf}, () => this.fetchQuestionData())
+                this.setState({node: node, hasNextQuestion: !node.is_leaf}, () => {
+                    this.evaluateNode()
+                    this.fetchQuestionData()
+                })
             })
         }
     }
+
 
     sendEntry(entry: ExperimentEntry): void {
         API.postEntry(entry).then(res => {
             console.log(res)
         })
+        this.setState({entrySent: true})
     }
 
     fetchQuestionData(): void {
@@ -122,6 +129,7 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
     moveInTree = () => {
         const next_node_id = (this.state.lastAnswer && this.state.lastAnswer.numeric_value > 0.5) ? this.state.node.right_child : this.state.node.left_child
         this.fetchNodeData(next_node_id)
+        console.log("moving to node " + next_node_id)
         this.setState((oldstate: ExperimentComponentState) => {
             const new_question_count = oldstate.entry.question_count + 1
             return {
@@ -133,13 +141,15 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
                     result_font: oldstate.node.font_id,
                     time_in_milis: oldstate.entry.time_in_milis,
                     question_count: new_question_count
-                }
+                },
             }
-        }, () => this.evaluateNode())
+        }, () => {
+        })
 
     }
 
     evaluateNode = () => {
+        console.log("evaluationg node " + this.state.node.node_id)
         if (this.state.node.is_leaf) {
             this.setState((oldstate: ExperimentComponentState) => {
                 const time = oldstate.startTime ? Date.now() - oldstate.startTime : -1
@@ -155,7 +165,14 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
                     },
                     hasNextQuestion: false
                 }
-            }, () => this.sendEntry(this.state.entry))
+            }, () => {
+                if (Number.isNaN(this.state.entry.age)) {
+                    alert("Niektoré z dát o Vás nie sú vypnené, skontrolujte a doplňte formulár prosím!")
+                    this.openModal()
+                } else {
+                    this.sendEntry(this.state.entry)
+                }
+            })
         }
     }
 
@@ -218,17 +235,21 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
                 showModal: !old.showModal,
                 startTime: old.startTime ? old.startTime : Date.now()
             }
-        })
+        }, () => this.evaluateNode())
     }
 
     onSelectAnswer = (a: Answer) => {
         this.setState({lastAnswer: a}, () => this.moveInTree())
     }
 
+    openModal() {
+        this.setState({showModal: true})
+    }
+
 
     componentDidMount() {
         API.getStatus().then(r => {
-            this.setState({apiStatus: r}, () => this.fetchNodeData(1))
+            this.setState({apiStatus: r}, () => this.fetchNodeData(334))
         })
         API.getRandomFont().then(r => {
             this.setState({
@@ -254,13 +275,7 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
                 <br/>
                 <Row>
                     <Col>
-                        <Button variant="secondary" onClick={() => this.toggleModal()}>O Vás</Button>
-                    </Col>
-                </Row>
-                <br/>
-                <Row>
-                    <Col>
-                        <FontComponent font={this.state.font}></FontComponent>
+                        <FontComponent font={this.state.font} title_text={"Priradený font:"}></FontComponent>
                         <br/> <br/>
                         <QuestionComponent
                             question_id={this.state.node.question_id}
@@ -269,14 +284,13 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
                         ></QuestionComponent>
                     </Col>
                 </Row>
-                <Row>
-                    {/*    odpovede na otazku*/}
-                    <Col>
 
-                    </Col>
-                </Row>
 
             </Container>
+
+            <div className={'about-button'}>
+                <Button variant="secondary" onClick={() => this.toggleModal()}>Skontrolovať údaje</Button>
+            </div>
 
 
             <Modal
@@ -289,24 +303,35 @@ export default class ExperimentComponent extends React.Component<ExperimentCompo
                     O Vás
                 </Modal.Header>
                 <Modal.Body>
+                    <div>Pohlavie:</div>
                     <Form.Select value={this.state.entry.sex} onChange={this.handleSexChange}>
                         {sexOptions.map(({label, value}) => {
                             return <option value={value} key={value}>{label}</option>
                         })}
                     </Form.Select>
-
+                    <div>Najvyššie dosiahnuté vzdelanie:</div>
                     <Form.Select value={this.state.entry.highest_education} onChange={this.handleEducationChange}>
                         {educationOptions.map(({label, value}) => {
                             return <option value={value} key={value}>{label}</option>
                         })}
                     </Form.Select>
+                    <div>Vek:</div>
                     <InputGroup>
                         <input type={"number"} value={this.state.entry.age}
                                onChange={this.handleAgeChange}/>
                     </InputGroup>
-                    <Button variant="secondary" onClick={() => this.toggleModal()}>{this.state.startTime ? "Pokračovať" : "Začať"}</Button>
+                    <br/>
+                    <Button variant="secondary"
+                            onClick={() => this.toggleModal()}>{this.state.startTime ? "Pokračovať" : "Začať"}</Button>
                 </Modal.Body>
             </Modal>
+            {this.state.entrySent && <Navigate to={
+                "/thankyou?assigned_font=" +
+                this.state.entry.assigned_font +
+                "&result_font=" +
+                this.state.entry.result_font}
+            />}
         </ThemeProvider>
+
     }
 }

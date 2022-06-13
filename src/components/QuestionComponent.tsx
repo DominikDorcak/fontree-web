@@ -39,6 +39,7 @@ export default class QuestionComponent extends React.Component<QuestionComponent
                     </Col>
                 })}
             </Row>
+            <br/>
         </>;
     }
 }

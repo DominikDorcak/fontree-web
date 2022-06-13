@@ -45,6 +45,8 @@ export interface Answer {
     show_value: string
 }
 
+
+
 export interface InsertResponse {
     inserted: {
         id: number,
@@ -52,4 +54,13 @@ export interface InsertResponse {
     },
 }
 
+export interface FontAnswer {
+    id?:number,
+    font_id:number,
+    answer_id:number
+}
+
+export interface FontAnswerResponse {
+    font_answer:FontAnswer
+}
 

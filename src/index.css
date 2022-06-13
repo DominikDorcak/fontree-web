@@ -11,3 +11,98 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.navbar__container{
+  align-items: flex-end !important;
+}
+
+.brand-logo {
+  height: 3em;
+}
+
+.answer-img{
+  height: 12em;
+}
+
+.img-404{
+  width: 40em;
+}
+
+.img-half{
+  width: 35em;
+}
+
+.about-button{
+  position: fixed;
+  bottom: 5em;
+  right: 1em;
+  z-index: 100;
+  padding: 48px 0 0;
+}
+
+.blob__wrap{
+  position: relative;
+}
+
+.blob__left{
+  z-index: -100;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #004d00;
+  border-radius: 30% 70% 79% 21% / 30% 32% 68% 70% ;
+  transition: 0.5s ease;
+}
+
+.blob__wrap:hover > .blob__left{
+  border-radius: 30%;
+}
+.blob__wrap:hover > .blob__right{
+  border-radius: 30%;
+}
+
+.blob__text{
+  z-index: 100;
+  padding: 3em;
+  background: transparent;
+  color: white;
+  font-size: 1.5em;
+}
+
+.blob__right{
+  z-index: -100;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #004d00;
+  border-radius: 23% 77% 13% 87% / 59% 36% 64% 41%  ;
+  transition: 0.5s ease;
+}
+
+.footer-container{
+  background: #212529;
+  color: white;
+  min-width: 100vw;
+  padding: 0.7em;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+}
+
+.footer-padder{
+  min-height: 3em;
+  max-width: 50em;
+}
+
+.experiment-guide{
+  text-align: left;
+}
+
+.logo-about{
+  max-width: 12em;
+}
