@@ -31,7 +31,7 @@ export default class ExperimentGuide extends Component<any, any>{
                             Ak sa pri niektorej z otázok neviete jednoznačne rozhodnúť vyberte odpoveď podľa obrázka (vyberte odpoveď, pri ktorej odpovedajúci obrázok je bližšie ku Vášmu fontu).
                             Ak neviete rozhodnúť ani podľa obrázka označte odpoveď nie<br/>
                             Poprosím Vás, aby ste celý formulár vyplnili naraz, bez prepínania kariet a bez odchodu od PC. Meriame aj priemerný čas na nájdenie fontu a skreslilo by to výsledky.
-                            Ak ste nútený počas vyplňovania odísť, po návrate začnite celý proces od začiatku.
+                            Ak ste nútení počas vyplňovania odísť, po návrate začnite celý proces od začiatku.
 
                         </Alert>
                     </Col>

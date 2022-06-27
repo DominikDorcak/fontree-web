@@ -38,6 +38,7 @@ function App() {
                     <Route path="/experiment-entry" element={<ExperimentComponent/>}/>
                     <Route path="/thankyou" element={<ThankComponent/>}/>
                     <Route path="/about" element={<AboutComponent/>}/>
+                    {/*ostranene na live(bolo potrebne na naplnanie datasetu)*/}
                     <Route path="/font-questions">
                         <Route path=":id" element={<FontQuestions />}></Route>
                     </Route>
