@@ -66,7 +66,7 @@ class API {
     }
 
     async getStatus(): Promise<StatusResponse> {
-        return await this.createResponse("", [])
+        return await this.createResponse("/status", [])
     }
 
     async getRandomFont(): Promise<{ font_id: number }> {
