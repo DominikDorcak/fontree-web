@@ -15,7 +15,7 @@ export default class ImageLoader extends React.Component<ImgProps, ImgState>{
 
     render() {
         return (
-            <img src={this.imghome + this.props.path} alt={this.props.alt} className={this.props.class!}></img>
+            <img src={this.imghome + this.props.path} alt={this.props.alt} className={this.props.class!} loading={"lazy"}></img>
         );
     }
 }
